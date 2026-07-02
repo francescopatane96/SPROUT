@@ -31,27 +31,24 @@ def simple_prediction_function(spacer_pam):
     sequence_pam_per_gene_grna = np.reshape(sequence_pam_per_gene_grna , (1,-1))
 
 
-    print "\nHere are the repair outcomes that SPROUT predicts for this guide:"
+    print("\nHere are the repair outcomes that SPROUT predicts for this guide:")
     frac_total_ins = 100 * float(m_frac_total_ins.predict(sequence_pam_per_gene_grna)[0])
     frac_mutant_ins = 100 * float(m_frac_mutant_ins.predict(sequence_pam_per_gene_grna)[0])
 
-    print "Fraction of total reads with insertion \t\t %.0f %%" %frac_total_ins
+    print("Fraction of total reads with insertion \t\t %.0f %%" %frac_total_ins)
     #print "Fraction of total reads with deletion \t\t %.0f %%"  % (frac_total_ins*(100/(frac_mutant_ins) -1))
-    print "Insertion to deletion ratio \t\t\t\t %.0f %%"  % (100*(frac_mutant_ins / float((100 - frac_mutant_ins))))
-    print "Average insertion length \t\t\t\t\t %.1f bps" %float(m_avg_ins_length.predict(sequence_pam_per_gene_grna)[0])
-    print "Average deletion length \t\t\t\t\t %.1f bps" %float(m_avg_del_length.predict(sequence_pam_per_gene_grna)[0])
+    print("Insertion to deletion ratio \t\t\t\t %.0f %%"  % (100*(frac_mutant_ins / float((100 - frac_mutant_ins)))))
+    print("Average insertion length \t\t\t\t\t %.1f bps" %float(m_avg_ins_length.predict(sequence_pam_per_gene_grna)[0]))
+    print("Average deletion length \t\t\t\t\t %.1f bps" %float(m_avg_del_length.predict(sequence_pam_per_gene_grna)[0]))
 
     diversity = m_diversity.predict(sequence_pam_per_gene_grna)[0]
     if diversity > 3.38:
-        print "Diversity \t\t\t\t\t\t\t\t\t %.2f (High)" %float(diversity)
+        print("Diversity \t\t\t\t\t\t\t\t\t %.2f (High)" %float(diversity))
     else:
-        print "Diversity \t\t\t\t\t\t\t\t\t %.2f (Low)" % float(diversity)
+        print("Diversity \t\t\t\t\t\t\t\t\t %.2f (Low)" % float(diversity))
 
     nucleotide_array = ['A', 'C', 'G', 'T']
-    print "Most likely inserted base pair \t\t\t\t %s" %nucleotide_array[int(single_bp_inserted.predict(sequence_pam_per_gene_grna)[0])]
-
-
-
+    print("Most likely inserted base pair \t\t\t\t %s" %nucleotide_array[int(single_bp_inserted.predict(sequence_pam_per_gene_grna)[0])])
 
 
 def prediction_function(spacer_pam,genomic_factor):
@@ -70,28 +67,28 @@ def prediction_function(spacer_pam,genomic_factor):
 
     sequence_pam_per_gene_grna = np.reshape(sequence_pam_per_gene_grna , (1,-1))
 
-    sequence_pam_genomic_per_gene_grna = np.transpose(np.concatenate(( np.transpose(sequence_pam_per_gene_grna),np.transpose(genomic_factor))))
+    sequence_pam_genomic_per_gene_grna = np.transpose(np.concatenate((np.transpose(sequence_pam_per_gene_grna),np.transpose(genomic_factor))))
 
 
-    print "\nHere are the repair outcomes that SPROUT predicts for this guide:"
+    print("\nHere are the repair outcomes that SPROUT predicts for this guide:")
     frac_total_ins = 100 * float(m_frac_total_ins.predict(sequence_pam_per_gene_grna)[0])
     frac_mutant_ins = 100 * float(m_frac_mutant_ins.predict(sequence_pam_per_gene_grna)[0])
 
-    print "Fraction of total reads with insertion \t\t %.0f %%" %frac_total_ins
-    print "Insertion to deletion ratio \t\t\t\t %.0f %%"  % (100*(frac_mutant_ins / float((100 - frac_mutant_ins))))
-    print "Average insertion length \t\t\t\t\t %.1f bps" %float(m_avg_ins_length.predict(sequence_pam_genomic_per_gene_grna)[0])
-    print "Average deletion length \t\t\t\t\t %.1f bps" %float(m_avg_del_length.predict(sequence_pam_genomic_per_gene_grna)[0])
+    print("Fraction of total reads with insertion \t\t %.0f %%" %frac_total_ins)
+    print("Insertion to deletion ratio \t\t\t\t %.0f %%"  % (100*(frac_mutant_ins / float((100 - frac_mutant_ins)))))
+    print("Average insertion length \t\t\t\t\t %.1f bps" %float(m_avg_ins_length.predict(sequence_pam_genomic_per_gene_grna)[0]))
+    print("Average deletion length \t\t\t\t\t %.1f bps" %float(m_avg_del_length.predict(sequence_pam_genomic_per_gene_grna)[0]))
 
     diversity = m_diversity.predict(sequence_pam_genomic_per_gene_grna)[0]
     if diversity > 3.38:
-        print "Diversity \t\t\t\t\t\t\t\t\t %.2f (High)" %float(diversity)
+        print("Diversity \t\t\t\t\t\t\t\t\t %.2f (High)" %float(diversity))
     else:
-        print "Diversity \t\t\t\t\t\t\t\t\t %.2f (Low)" % float(diversity)
+        print("Diversity \t\t\t\t\t\t\t\t\t %.2f (Low)" % float(diversity))
 
     nucleotide_array = ['A', 'C', 'G', 'T']
-    print "Most likely inserted base pair \t\t\t\t %s" %nucleotide_array[int(m_single_bp_inserted.predict(sequence_pam_per_gene_grna)[0])]
+    print("Most likely inserted base pair \t\t\t\t %s" %nucleotide_array[int(m_single_bp_inserted.predict(sequence_pam_per_gene_grna)[0])])
 
-    print "Edit efficiency \t\t\t\t\t\t\t %.0f %%" % (100*float(m_edit_eff.predict(sequence_pam_genomic_per_gene_grna)[0]))
+    print("Edit efficiency \t\t\t\t\t\t\t %.0f %%" % (100*float(m_edit_eff.predict(sequence_pam_genomic_per_gene_grna)[0])))
 
 
 input_indicator = raw_input("Which input format do you prefer? \n(1) sgRNA sequence only\n(2) sgRNA sequence + genomic features (chromatin, etc.)\n(3) location on the genome and cell type \n\nSelected option:\n")
@@ -100,11 +97,11 @@ if input_indicator == '1':
     proceed_flag = 1
 
     if len(spacer_pam)<23:
-        print "Sequence is too short."
+        print("Sequence is too short.")
         proceed_flag = 0
 
     if spacer_pam.count('A')+spacer_pam.count('T')+spacer_pam.count('C')+spacer_pam.count('G') != len(spacer_pam):
-        print "Sequence should contains four characters A, T, C, and G."
+        print("Sequence should contains four characters A, T, C, and G.")
         proceed_flag = 0
 
     if proceed_flag == 1:
@@ -116,17 +113,17 @@ if input_indicator == '2':
     spacer_pam = raw_input("\nInput the sgRNA sequence followed by the PAM sequence:\n")
 
     if len(spacer_pam)<23:
-        print "Sequence is too short."
+        print("Sequence is too short.")
         proceed_flag = 0
 
     if spacer_pam.count('A')+spacer_pam.count('T')+spacer_pam.count('C')+spacer_pam.count('G') != len(spacer_pam):
-        print "Sequence should contains four characters A, T, C, and G."
+        print("Sequence should contains four characters A, T, C, and G.")
         proceed_flag = 0
 
     chrom_factor = raw_input("\nInput the genomic factors separated by ',':\n")
     chrom_factor = np.asarray(chrom_factor.split(','))
     if len(chrom_factor)!=33:
-        print "Number of genomic feaures do not match. Please enter 33 features."
+        print("Number of genomic feaures do not match. Please enter 33 features.")
 
     else:
         chrom_factor_float = []
@@ -160,15 +157,15 @@ if input_indicator == '3':
     else:
         guide = targetline1[position%50:] + targetline2[:23-position%50]
 
-    print "\nThis is the selected guide sequence:"
+    print("\nThis is the selected guide sequence:")
     print guide
 
     if guide.count('A')+guide.count('T')+guide.count('C')+guide.count('G') != 23:
-        print "The sequence is invalid. It contains characters out of the four A, T, C, and G nucleotide."
+        print("The sequence is invalid. It contains characters out of the four A, T, C, and G nucleotide.")
     elif guide[-2:] != 'GG':
-        print "The PAM sequence is invalid. PAM should be in NGG format."
+        print("The PAM sequence is invalid. PAM should be in NGG format.")
     else:
-        print simple_prediction_function(guide)
+        print(simple_prediction_function(guide))
 
 
 
