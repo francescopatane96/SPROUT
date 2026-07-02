@@ -158,7 +158,7 @@ if input_indicator == '3':
         guide = targetline1[position%50:] + targetline2[:23-position%50]
 
     print("\nThis is the selected guide sequence:")
-    print guide
+    print(guide)
 
     if guide.count('A')+guide.count('T')+guide.count('C')+guide.count('G') != 23:
         print("The sequence is invalid. It contains characters out of the four A, T, C, and G nucleotide.")
